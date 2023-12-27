@@ -16,6 +16,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -188,29 +190,60 @@ fun KontakCard(
     ) {
         Column(
             modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
+            Column (
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Row (
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Person,
+                        contentDescription = null
+                    )
+                    Spacer(Modifier.padding(10.dp))
+                    Text(
+                        text = kontak.nama,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                }
+                Row (
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ){
+                    Icon(
+                        imageVector = Icons.Default.Phone,
+                        contentDescription = null
+                    )
+                    Spacer(Modifier.padding(10.dp))
+                    Text(
+                        text = kontak.telpon,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Email,
+                        contentDescription = null
+                    )
+                    Spacer(Modifier.padding(10.dp))
+                    Text(
+                        text = kontak.alamat,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+            }
+
             Row (
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+//                verticalAlignment = Alignment.CenterVertically
             ){
-                Text(
-                    text = kontak.nama,
-                    style = MaterialTheme.typography.titleLarge
-                )
-                Spacer(Modifier.weight(1f))
-                Icon(
-                    imageVector = Icons.Default.Phone,
-                    contentDescription = null
-                )
-                Text(
-                    text = kontak.telpon,
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Text(
-                    text = kontak.alamat,
-                    style = MaterialTheme.typography.titleMedium
-                )
                 Spacer(Modifier.weight(1f))
                 IconButton(onClick = {onDeleteClick(kontak)}) {
                     Icon(
