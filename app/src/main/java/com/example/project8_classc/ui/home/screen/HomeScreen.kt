@@ -33,16 +33,24 @@ import com.example.project8_classc.model.Kontak
 import com.example.project8_classc.ui.home.viewmodel.KontakUIState
 
 @Composable
-fun HomeScreen(
+fun HomeStatus(
     kontakUIState: KontakUIState,
     retryAction: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onDeleteClick: (Kontak) -> Unit = {},
+    onDetailClick: (Int) -> Unit
 ){
     when (kontakUIState){
         is KontakUIState.Loading -> OnLoading(modifier.fillMaxSize())
         is KontakUIState.Success -> KontakLayout(
             kontak = kontakUIState.kontak,
-            modifier = modifier.fillMaxWidth()
+            modifier = modifier.fillMaxWidth(),
+            onDetailClick = {
+                onDetailClick(it.id)
+            },
+            onDeleteClick = {
+                onDeleteClick(it)
+            }
         )
 
         is KontakUIState.Error -> OnError(retryAction, modifier.fillMaxSize())
@@ -84,7 +92,7 @@ fun OnError(
 fun KontakLayout(
     kontak: List<Kontak>,
     modifier: Modifier = Modifier,
-    onDetailClick: (Kontak) -> Unit = {},
+    onDetailClick: (Kontak) -> Unit,
     onDeleteClick: (Kontak) -> Unit = {}
 ){
     LazyColumn(
