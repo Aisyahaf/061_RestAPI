@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -35,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.project8_classc.R
 import com.example.project8_classc.model.Kontak
@@ -44,6 +44,7 @@ import com.example.project8_classc.ui.home.viewmodel.KontakUIState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.project8_classc.ui.PenyediaViewModel
 import com.example.project8_classc.ui.TopAppBarKontak
+import com.example.project8_classc.ui.theme.Project8_ClassCTheme
 
 object DestinasiHome : DestinasiNavigasi{
     override val route = "home"
@@ -112,11 +113,10 @@ fun HomeStatus(
             modifier = modifier.fillMaxWidth(),
             onDetailClick = {
                 onDetailClick(it.id)
-            },
-            onDeleteClick = {
-                onDeleteClick(it)
             }
-        )
+        ) {
+            onDeleteClick(it)
+        }
 
         is KontakUIState.Error -> OnError(retryAction, modifier.fillMaxSize())
     }
@@ -155,7 +155,7 @@ fun OnError(
 
 @Composable
 fun KontakLayout(
-    kontak: List<Kontak>,
+    kontak: Kontak,
     modifier: Modifier = Modifier,
     onDetailClick: (Kontak) -> Unit,
     onDeleteClick: (Kontak) -> Unit = {}
@@ -242,7 +242,7 @@ fun KontakCard(
 
             Row (
                 modifier = Modifier.fillMaxWidth(),
-//                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically
             ){
                 Spacer(Modifier.weight(1f))
                 IconButton(onClick = {onDeleteClick(kontak)}) {
@@ -254,5 +254,13 @@ fun KontakCard(
             }
 
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun previewHomeScreen(){
+    Project8_ClassCTheme {
+        HomeScreen(navigateToItemEntry = {})
     }
 }
